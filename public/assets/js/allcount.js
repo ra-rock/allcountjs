@@ -279,7 +279,7 @@ allcountModule.config(["fieldRenderingServiceProvider", function (fieldRendering
                     });
                 });
 
-                return $compile('<div ng-if="entityCrudId" lc-grid="entityCrudId" paging="{}" edit-mode="isEditor" navigate-to="navigateToEntity($entityTypeId, $entityId)"></div><div ng-if="!entityCrudId">' + messages('Relation editing available after object creation') + '</div>')(scope);
+                return $compile('<div ng-if="entityCrudId" lc-grid="entityCrudId" paging="{}" edit-mode="isEditor" navigate="navigateToEntity($entityTypeId, $entityId)"></div><div ng-if="!entityCrudId">' + messages('Relation editing available after object creation') + '</div>')(scope);
             }],
             attachment: [function (value, fieldDescription) {
                 if (!value) {
