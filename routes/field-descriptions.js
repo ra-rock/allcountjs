@@ -26,7 +26,8 @@ module.exports = function (entityDescriptionService, layoutService, routeUtil, m
         var entityDescription = entityDescriptionService.entityDescription(entityCrudId);
         res.json({
             title: entityDescription.title || entityCrudId.entityTypeId && findTitle(menuService.menus(req.user), entityCrudId.entityTypeId),
-            referenceNameExpression: entityDescription.referenceNameExpression
+            referenceNameExpression: entityDescription.referenceNameExpression,
+            tableName: entityDescription.tableDescription.tableName
         })
     };
 

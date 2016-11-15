@@ -26,6 +26,15 @@ var EntityViewController = ['$scope', 'track', '$window', '$location', function 
         $scope.viewState.formEntityId = entityId;
         $scope.viewState.mode = 'form';
     };
+    
+    $scope.navigateToEntity = function (entityTypeId, entityId) {
+        track('allcount-entity-navigate-to', {
+            location: $window.location.origin + '/' + entityTypeId + '/',
+            entityId: entityId
+        });
+        $scope.viewState.formEntityId = entityId;
+        $scope.viewState.mode = 'list';
+    };
 
     $scope.startEditing = function () {
         track('allcount-entity-start-editing', {

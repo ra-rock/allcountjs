@@ -268,15 +268,18 @@ allcountModule.config(["fieldRenderingServiceProvider", function (fieldRendering
             }],
             relation: [false, function (fieldDescription, controller, updateValue, clone, scope) {
                 scope.entityCrudId = null;
-                scope.$parent.$watch('entity', function (entity) {
-                    scope.entityCrudId = entity && entity.id ? {
-                        entityTypeId: scope.entityTypeId,
-                        relationField: fieldDescription.field,
-                        parentEntityId: entity.id
-                    } : undefined;
+                rest.entityDescription(fieldDescription.fieldType.relationEntityTypeId, function(entityDescription) {
+                    scope.$parent.$watch('entity', function (entity) {
+                        scope.entityCrudId = entity && entity.id ? {
+                            entityTypeId: scope.entityTypeId,
+                            relationField: fieldDescription.field,
+                            relationFieldTypeId: entityDescription.tableName,
+                            parentEntityId: entity.id
+                        } : undefined;
+                    });
                 });
 
-                return $compile('<div ng-if="entityCrudId" lc-grid="entityCrudId" paging="{}" edit-mode="isEditor"></div><div ng-if="!entityCrudId">' + messages('Relation editing available after object creation') + '</div>')(scope);
+                return $compile('<div ng-if="entityCrudId" lc-grid="entityCrudId" paging="{}" edit-mode="isEditor" navigate-to="navigateToEntity($entityTypeId, $entityId)"></div><div ng-if="!entityCrudId">' + messages('Relation editing available after object creation') + '</div>')(scope);
             }],
             attachment: [function (value, fieldDescription) {
                 if (!value) {
